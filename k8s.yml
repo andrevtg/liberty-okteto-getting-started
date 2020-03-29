@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liberty-okteto-getting-started
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liberty-okteto-getting-started
+  template:
+    metadata:
+      labels:
+        app: liberty-okteto-getting-started
+    spec:
+      terminationGracePeriodSeconds: 0
+      containers:
+      - name: liberty
+        image: okteto-maven:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 9080
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: liberty-okteto-getting-started
+  annotations:
+    dev.okteto.com/auto-ingress: "true"
+  labels:
+    app: liberty-okteto-getting-started
+spec:
+  type: ClusterIP
+  ports:
+    - name: liberty-okteto-getting-started
+      port: 9080
+  selector:
+    app: liberty-okteto-getting-started

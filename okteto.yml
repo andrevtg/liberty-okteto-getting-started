@@ -1,0 +1,10 @@
+name: liberty-okteto-getting-started
+image: okteto/maven:latest
+command:
+- bash
+workdir: /okteto
+volumes:
+- /root/.m2
+forward:
+- 9080:9080
+#- 8088:8088

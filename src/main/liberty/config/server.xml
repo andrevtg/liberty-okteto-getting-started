@@ -1,5 +1,8 @@
 <server description="Sample Open Liberty server">
-
+  <!-- 
+    Server.xml reference:
+    https://openliberty.io/docs/ref/config/
+  -->
   <featureManager>
     <feature>jaxrs-2.1</feature>
     <feature>mpConfig-1.3</feature>
@@ -7,15 +10,16 @@
     <feature>mpMetrics-2.2</feature>
   </featureManager>
 
-  <applicationManager autoExpand="true" />
+  <applicationManager autoExpand="true" startTimeout="60s" stopTimeout="60s" />
+  <applicationMonitor dropinsEnabled="false" />
 
   <mpMetrics authentication="false" />
 
   <variable name="default.http.port" defaultValue="9080"/>
-  <variable name="default.https.port" defaultValue="9443"/>
+  <!-- <variable name="default.https.port" defaultValue="9443"/> -->
   <variable name="app.context.root" defaultValue="/"/>
 
-  <httpEndpoint host="*" httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint"/>
+  <httpEndpoint host="*" httpPort="${default.http.port}" id="defaultHttpEndpoint"/>
   <keyStore id="defaultKeyStore" password="OpenLiberty" />
 
   <webApplication location="io.openliberty.sample.getting.started.war" contextRoot="${app.context.root}"/>
